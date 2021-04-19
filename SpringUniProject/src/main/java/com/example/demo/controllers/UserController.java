@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping("trello")
 public class UserController {
@@ -20,9 +22,9 @@ public class UserController {
 
     @GetMapping(value = "/AllUsers")
     private ResponseEntity<List<User>> getAll(){
-        final List<User> userList = userRepository.findAll();
-        if (!userList.isEmpty()){
-            return new ResponseEntity<>(userList, HttpStatus.OK);
+        final List<User> users = userRepository.findAll();
+        if (!users.isEmpty()){
+            return new ResponseEntity<>(users, HttpStatus.OK);
         }else{
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -30,9 +32,9 @@ public class UserController {
 
     @GetMapping(value = "/user/id={id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
-        final User currentUser = userRepository.findUserByRowId(id);
-        if (currentUser != null){
-            return new ResponseEntity<>(currentUser, HttpStatus.OK);
+        final User found = userRepository.findUserByRowId(id);
+        if (found != null){
+            return new ResponseEntity<>(found, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

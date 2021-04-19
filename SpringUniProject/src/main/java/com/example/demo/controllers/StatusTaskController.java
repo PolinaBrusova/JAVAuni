@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("trello")
 public class StatusTaskController {
@@ -21,9 +22,9 @@ public class StatusTaskController {
 
     @GetMapping(value = "/AllStatusTasks")
     private ResponseEntity<List<StatusTask>> getAll(){
-        final List<StatusTask> statusTaskList = statusTaskRepository.findAll();
-        if (!statusTaskList.isEmpty()){
-            return new ResponseEntity<>(statusTaskList, HttpStatus.OK);
+        final List<StatusTask> statusesTasks= statusTaskRepository.findAll();
+        if (!statusesTasks.isEmpty()){
+            return new ResponseEntity<>(statusesTasks, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -31,9 +32,9 @@ public class StatusTaskController {
 
     @GetMapping(value = "/statusTask/id={id}")
     public ResponseEntity<StatusTask> getStatus(@PathVariable Long id) {
-        final StatusTask currentStatusTask = statusTaskRepository.findStatusTaskByRowId(id);
-        if(currentStatusTask != null){
-            return new ResponseEntity<>(currentStatusTask, HttpStatus.OK);
+        final StatusTask found = statusTaskRepository.findStatusTaskByRowId(id);
+        if(found != null){
+            return new ResponseEntity<>(found, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

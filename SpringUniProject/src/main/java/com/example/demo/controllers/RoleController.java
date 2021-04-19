@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("trello")
 public class RoleController {
@@ -21,9 +22,9 @@ public class RoleController {
 
     @GetMapping(value = "/AllRoles")
     private ResponseEntity<List<Role>> getAll(){
-        final List<Role> roleList = roleRepository.findAll();
-        if (!roleList.isEmpty()){
-            return new ResponseEntity<>(roleList, HttpStatus.OK);
+        final List<Role> roles = roleRepository.findAll();
+        if (!roles.isEmpty()){
+            return new ResponseEntity<>(roles, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -31,9 +32,9 @@ public class RoleController {
 
     @GetMapping(value = "/role/id={id}")
     public ResponseEntity<Role> getRole(@PathVariable Long id) {
-        final Role currentRole = roleRepository.findRoleByRowId(id);
-        if (currentRole != null){
-            return new ResponseEntity<>(currentRole, HttpStatus.OK);
+        final Role found = roleRepository.findRoleByRowId(id);
+        if (found != null){
+            return new ResponseEntity<>(found, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
