@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $("#lrnbtn").click(function (){
         $.ajax({
-            url: "http://localhost:8080/trello/AllUsers",
+            url: "http://localhost:8787/trello/AllUsers",
             type: "GET",
             dataType: "json",
             success: function (response){
@@ -21,7 +21,7 @@ $(document).ready(function(){
             "middleName": "HELLO",
             "passwordHash": "1098382309"
         };
-        let response = await fetch ("http://localhost:8080/trello/AddUser", {
+        let response = await fetch ("http://localhost:8787/trello/AddUser", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8"
